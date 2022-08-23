@@ -8,8 +8,7 @@ function App() {
 
   return (
     <div>
-      <span>Hello, App!</span>
-      {planets.length > 1 && <Table />}
+      {planets.length && <Table />}
     </div>
   );
 }
