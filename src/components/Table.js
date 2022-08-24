@@ -21,7 +21,7 @@ function Table() {
           Filtrar Por Nome
           <input
             type="search"
-            placeholder="filtro"
+            placeholder="planet name"
             onChange={ (e) => setFilteredByName(e.target.value) }
             data-testid="name-filter"
             value={ filteredByName }
@@ -32,7 +32,6 @@ function Table() {
         <select
           data-testid="column-filter"
           onChange={ (e) => setFilters({ ...filters, column: e.target.value }) }
-          name="column"
         >
           {
             [
@@ -51,7 +50,6 @@ function Table() {
         <select
           data-testid="comparison-filter"
           onChange={ (e) => setFilters({ ...filters, comparison: e.target.value }) }
-          name="comparison"
         >
           <option value="maior que">maior que</option>
           <option value="menor que">menor que</option>
@@ -62,10 +60,8 @@ function Table() {
           onChange={ (e) => setFilters({ ...filters, valuee: e.target.value }) }
           type="number"
           min={ 0 }
-          name="value-filter"
           value={ filters.valuee }
         />
-
         <button
           type="button"
           data-testid="button-filter"
@@ -79,25 +75,37 @@ function Table() {
           } }
         >
           Aplicar Filtro
-
         </button>
+        {selectedFilters.map((filter, index) => (
+          <div key={ index } data-testid="filter">
+            <button
+              type="button"
+              onClick={ () => {
+                const cloneArray = [...selectedFilters];
+                cloneArray.splice(index, 1);
+                setSelectedFilters(cloneArray);
+              } }
+            >
+              𝙭
+            </button>
+            <span>
+              {filter.column}
+              {' '}
+              {filter.comparison}
+              {' '}
+              {filter.valuee}
+            </span>
+          </div>
+        ))}
         <button
           type="button"
+          data-testid="button-remove-filters"
           onClick={ () => {
-            const cloneArray = [...selectedFilters];
-            cloneArray.splice(index, 1);
-            setSelectedFilters(cloneArray);
+            setSelectedFilters([]);
           } }
         >
-          𝙭
+          Limpar Filtros
         </button>
-        <span>
-          {filters.column}
-          {' '}
-          {filters.comparison}
-          {' '}
-          {filters.valuee}
-        </span>
       </div>
       <table>
         <thead>
