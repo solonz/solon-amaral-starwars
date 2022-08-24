@@ -80,6 +80,7 @@ function Table() {
           <div key={ index } data-testid="filter">
             <button
               type="button"
+              data-testid="delete-filter"
               onClick={ () => {
                 const cloneArray = [...selectedFilters];
                 cloneArray.splice(index, 1);
@@ -129,7 +130,7 @@ function Table() {
           {planets.filter((planet) => planet.name.toLowerCase()
             .includes(filteredByName.toLowerCase()))
             .filter(filteredPlanets).map((pla) => (
-              <tr key={ pla.name }>
+              <tr key={ pla.name } name={ pla.name }>
                 <td>{ pla.name }</td>
                 <td>{ pla.rotation_period }</td>
                 <td>{ pla.orbital_period }</td>
