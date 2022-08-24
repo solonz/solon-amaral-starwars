@@ -32,6 +32,19 @@ describe('test full use of application', () => {
   expect(deleteFilter).toBeInTheDocument()
   userEvent.click(deleteFilter)
   await waitFor(() => expect(screen.getByRole('cell', {  name: /hoth/i})).toBeInTheDocument());
-
+  userEvent.selectOptions(columnFilter, ['diameter'])
+  userEvent.selectOptions(comparisonFilter, ['menor que'])
+  userEvent.type(valueFilter, '5000')
+  userEvent.click(buttonFilter)
+  await waitFor(() => expect(screen.getByRole('cell', {  name: /endor/i})).toBeInTheDocument());
+  const resetFilters = screen.getByTestId("button-remove-filters")
+  expect(resetFilters).toBeInTheDocument()
+  userEvent.click(resetFilters)
+  await waitFor(() => expect(screen.getByRole('cell', {  name: /yavin/i})).toBeInTheDocument());
+  userEvent.selectOptions(columnFilter, ['surface_water'])
+  userEvent.selectOptions(comparisonFilter, ['igual a'])
+  userEvent.type(valueFilter, '1')
+  userEvent.click(buttonFilter)
+  await waitFor(() => expect(screen.getByRole('cell', {  name: /tatooine/i})).toBeInTheDocument());
 })
 });
